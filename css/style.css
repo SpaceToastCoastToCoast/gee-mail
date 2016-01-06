@@ -1,0 +1,27 @@
+table#inbox {
+  width: 90%;
+  margin: auto;
+  font-family: Tahoma, Geneva, sans-serif;
+}
+table, th, td {
+  color: #70a897;
+  border: 3px solid #003827;
+  border-collapse: collapse;
+}
+th {
+  color: #003827;
+  background-color: #468C77;
+}
+tr:nth-child(odd) {
+  background-color: #25705a;
+}
+tr:nth-child(even) {
+  background-color: #0e543f;
+}	
+th, td {
+  padding: 10px;
+  text-align: left;
+}
+caption {
+  text-align: right;
+}

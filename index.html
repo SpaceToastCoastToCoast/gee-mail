@@ -1,18 +1,56 @@
 <html>
 	<head>
+	<title>Gee-Mail</title>
 		<script src="js/mail-generator.js"></script>
 		<link href="css/style.css" rel="stylesheet" media="screen">
     <script>
-      window.onload = function(){
-        // ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
-        // We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
+    	window.onload = function(){
+        	// ALL OF YOUR JAVASCRIPT CODE SHOULD GO HERE. 
+        	// We have to use window.onload so your JavaScript doesn't execute until the page has loaded and all HTML has been downloaded to your browser
         
-      };
+			//Fill in our inbox count.
+			var inboxCount = geemails.length;
+			document.getElementById('count').innerHTML = inboxCount.toString();
+			console.log(geemails.length);
+		
+			//Adds a row to the inbox table. Accepts the index number of a message whose data will populate the fields.
+			function appendRow(messageIndex) {
+  				var tbl = document.getElementById('inbox');
+  				var row = tbl.insertRow(tbl.rows.length);
+  				//Populate the row with date, sender and subject.
+  				row.insertCell(0).appendChild(document.createTextNode(geemails[messageIndex].date));
+  				row.insertCell(1).appendChild(document.createTextNode(geemails[messageIndex].sender));
+  				row.insertCell(2).appendChild(document.createTextNode(geemails[messageIndex].subject));
+			}
+
+			//Add the contents of our message array to our inbox.
+			for (var i = 0; i < geemails.length; i++) {
+   				appendRow(i);
+   			}
+
+   			//Here is where I will fill in a method to display the email body when the row containing that message is clicked.
+   			//[rowID].onClick([display method](geemails[index].body));
+
+   			//Every 10 seconds, add a newly generated message to the inbox, add it to the inbox table, and increment the inbox count.
+			setInterval(function(){
+				geemails.push(getNewMessage());
+        		appendRow(inboxCount);
+        		inboxCount = geemails.length; //I increment inboxCount after appending the row because that way I don't need to go back and subtract from inboxCount to get the last position.
+        		document.getElementById('count').innerHTML = inboxCount.toString();
+			}, 10000);
+    	};
     </script>
 	</head>
 	<body>
 		<div class="container" id="main">
-			Build Me!
+			<table id="inbox">
+    			<caption>Inbox Count: <strong id="count">0</strong></caption>
+    		<tr>
+      			<th>Date</th>
+      			<th>Subject</th>
+      			<th>Sender</th>
+    		</tr>
+  			</table>
 		</div>
 	</body>
 </html>
