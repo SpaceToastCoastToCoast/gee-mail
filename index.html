@@ -11,25 +11,31 @@
 			//Fill in our inbox count.
 			var inboxCount = geemails.length;
 			document.getElementById('count').innerHTML = inboxCount.toString();
-			console.log(geemails.length);
+			//console.log(geemails.length);
+
 		
-			//Adds a row to the inbox table. Accepts the index number of a message whose data will populate the fields.
-			function appendRow(messageIndex) {
+			//Adds a row to the inbox table. Accepts the index number of a message whose data will populate the fields. Gives the row an id number and a click listener.
+			var appendRow = function(messageIndex) {
   				var tbl = document.getElementById('inbox');
   				var row = tbl.insertRow(tbl.rows.length);
   				//Populate the row with date, sender and subject.
   				row.insertCell(0).appendChild(document.createTextNode(geemails[messageIndex].date));
   				row.insertCell(1).appendChild(document.createTextNode(geemails[messageIndex].sender));
   				row.insertCell(2).appendChild(document.createTextNode(geemails[messageIndex].subject));
+  				row.insertCell(3).appendChild(document.createTextNode(geemails[messageIndex].body));
+  				row.cells[3].className = 'collapse';
+  				row.id = (messageIndex);
+  				row.addEventListener("click", function(){showMessage(row.id);}, false);
+			}
+			//This sets the body of the message to visible via CSS. Accepts a row ID in order to display the corresponding message body.
+			var showMessage = function(rowId) {
+				document.getElementById(rowId).cells[3].className = 'visible'; console.log('showMessage');
 			}
 
 			//Add the contents of our message array to our inbox.
 			for (var i = 0; i < geemails.length; i++) {
    				appendRow(i);
    			}
-
-   			//Here is where I will fill in a method to display the email body when the row containing that message is clicked.
-   			//[rowID].onClick([display method](geemails[index].body));
 
    			//Every 10 seconds, add a newly generated message to the inbox, add it to the inbox table, and increment the inbox count.
 			setInterval(function(){
@@ -42,6 +48,9 @@
     </script>
 	</head>
 	<body>
+		<div class="container" id="header">
+			<h1>Gee-Mail</h1>
+		</div>
 		<div class="container" id="main">
 			<table id="inbox">
     			<caption>Inbox Count: <strong id="count">0</strong></caption>
@@ -49,6 +58,7 @@
       			<th>Date</th>
       			<th>Subject</th>
       			<th>Sender</th>
+      			<th>Body</th>
     		</tr>
   			</table>
 		</div>

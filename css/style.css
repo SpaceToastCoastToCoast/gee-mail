@@ -1,3 +1,11 @@
+h1 {
+  width: 75%;
+  margin: auto;
+  text-align: center;
+  color: #003827;
+  background-color: #468C77;
+  font-family: Tahoma, Geneva, sans-serif;
+}
 table#inbox {
   width: 90%;
   margin: auto;
@@ -21,6 +29,12 @@ tr:nth-child(even) {
 th, td {
   padding: 10px;
   text-align: left;
+}
+td.collapse {
+  visibility: collapse;
+}
+td.visible {
+  visibility: visible;
 }
 caption {
   text-align: right;
